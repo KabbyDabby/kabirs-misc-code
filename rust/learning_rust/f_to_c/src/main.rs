@@ -17,3 +17,12 @@ fn main() {
 fn convert(fahreinheit: f64) -> f64 {
     (fahreinheit - 32.0) / 1.8
 }
+
+fn foo() {
+    println!("This is a function foo");
+}
+
+fn bar() {
+    println!("This is a function bar");
+    println!("");
+}
