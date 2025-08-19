@@ -53,7 +53,7 @@ enum UsState {
     Wyoming,
 }
 
-#[derive(Debug)]
+#[allow(unused)]
 enum Coin {
     Penny,
     Nickel,
@@ -61,37 +61,36 @@ enum Coin {
     Quarter(UsState),
 }
 
-fn main() {
-    // let penny = Coin::Penny;
-    // let nickel = Coin::Nickel;
-    // let dime = Coin::Dime;
-    // let quarter = Coin::Quarter(UsState::Delaware);
-    //
-    // println!("{}", { value(penny) });
-    // println!("{}", { value(nickel) });
-    // println!("{}", { value(dime) });
-    // println!("{}", { value(quarter) });
-    //
-    let one: Option<i32> = Some(1);
-    let null: Option<i32> = None;
-
-    println!("{}", basic_hash(one));
-    println!("{}", basic_hash(three));
-}
-
 #[allow(unused)]
-fn value(coin: Coin) -> u8 {
-    match coin {
-        Coin::Penny => 1,
-        Coin::Nickel => 5,
-        Coin::Dime => 10,
-        Coin::Quarter(state) => 25,
+impl UsState {
+    fn created_in(&self) -> u16 {
+        match self {
+            UsState::Delaware => 1789,
+            _ => 2025, //the year of our lord and savior DJT
+        }
+    }
+
+    fn existed_in(&self, year: u16) -> bool {
+        self.created_in() <= year
     }
 }
 
-fn basic_hash(x: Option<i32>) -> i32 {
-    match x {
-        Some(i) => i + 1,
-        None => 0,
+fn main() {
+    let max_value = Some(34u8);
+
+    if let Some(max) = max_value {
+        println!("The maximum value is {max}");
+    }
+}
+
+fn describe_state_quarter(coin: Coin) -> Option<String> {
+    let Coin::Quarter(state) = coin else {
+        return None;
+    };
+
+    if state.existed_in(1900) {
+        Some(String::from("OLDDDDD"))
+    } else {
+        Some(String::from("BORRRINGGGG"))
     }
 }
